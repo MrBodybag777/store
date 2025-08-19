@@ -11,18 +11,24 @@ namespace Store
 			balance -= products[productCost];
 			return balance;
 		}
+		public static Dictionary<String, Double> addingProducts(String name, Double price)
+		{
+			
+			Dictionary<String, Double> products = new Dictionary<String, Double>();
+			products.Add(name, price);
+			return products;
+		}
 		public static void Main(string[] args){
 			Double balance = 10000;
-			Dictionary<String, Double> products = new Dictionary<String, Double>();
-			products.Add("Apple", 5.99);
-			products.Add("Pizza", 9.99);
-			products.Add("Eggs", 6.00);
+			addingProducts("Apple", 5.99);
+			addingProducts("Pizza", 9.99);
+			addingProducts("Eggs", 6.00);
 
 			foreach (KeyValuePair<String, Double>kvp in products){
 				Console.WriteLine("{0} {1}$", kvp.Key, kvp.Value);
 			}
 			Console.WriteLine(balance);
-			balance = buyingProduct(products, "Apple", balance);
+			//balance = buyingProduct(products, "Apple", balance);
 			Console.WriteLine(balance);
 		}
 	}

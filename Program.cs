@@ -1,29 +1,50 @@
-﻿// See https://aka.ms/new-console-template for more information
-
 namespace Store
 {	
 	
 	class Program
 	{
 
-		public static double buyingProduct(Dictionary<String, Double> products, String productCost, Double balance)
+		public static void buyingProduct(Dictionary<String, Double> products, String product,ref Double balance)
 		{
-			balance -= products[productCost];
-			return balance;
+			balance -= products[product];
+		}
+		public static void shoppingLoop(Dictionary<String, Double> products,ref Double balance)
+		{	
+			for(;;){
+				List<String> cart = new List<String>();
+
+				Console.WriteLine("What item would you like to purches: ");
+				Console.WriteLine("Or checkout");
+				String desiredProduct = "";
+				desiredProduct += Console.ReadLine();
+				
+				if (desiredProduct == "checkout"){
+					foreach (String product in cart){
+						buyingProduct(products, product,ref balance);
+					}
+					break;
+				}
+				if (products.ContainsKey(desiredProduct)){
+					cart.Add(desiredProduct);
+				}
+				else{
+					Console.WriteLine("We do not have that product please try again");
+				}
+			}
 		}
 		public static void Main(string[] args){
-			Double balance = 10000;
 			Dictionary<String, Double> products = new Dictionary<String, Double>();
+			Double balance = 10000;
 			products.Add("Apple", 5.99);
 			products.Add("Pizza", 9.99);
-			products.Add("Eggs", 6.00);
-
+			products.Add("Eggs", 4.59);
 			foreach (KeyValuePair<String, Double>kvp in products){
-				Console.WriteLine("{0} {1}$", kvp.Key, kvp.Value);
+				Console.Write("--{0} {1}$--", kvp.Key, kvp.Value);
 			}
+			Console.Write("\n");
+			shoppingLoop(products,ref balance);
 			Console.WriteLine(balance);
-			balance = buyingProduct(products, "Apple", balance);
-			Console.WriteLine(balance);
+
 		}
 	}
 }
